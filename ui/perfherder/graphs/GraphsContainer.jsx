@@ -518,9 +518,10 @@ class GraphsContainer extends React.Component {
                   containerComponent={
                     <VictoryZoomSelectionContainer
                       zoomDomain={zoom}
+                      onZoomDomainChange={this.updateZoom}
                       onSelection={(_points, bounds) => this.updateZoom(bounds)}
                       allowPan={false}
-                      allowZoom={false}
+                      allowZoom
                     />
                   }
                 >
