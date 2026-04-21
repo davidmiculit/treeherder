@@ -348,7 +348,7 @@ function AlertsView({
     const prevParams = parseQueryParams(prevLocationSearch.current);
     prevLocationSearch.current = location.search;
 
-    if (
+    const filtersChanged =
       params.id !== prevParams.id ||
       params.status !== prevParams.status ||
       params.framework !== prevParams.framework ||
@@ -356,17 +356,25 @@ function AlertsView({
       params.hideDwnToInv !== prevParams.hideDwnToInv ||
       params.hideAssignedToOthers !== prevParams.hideAssignedToOthers ||
       params.monitoredAlerts !== prevParams.monitoredAlerts
-    ) {
+      
+    const nextPage = parseInt(params.page, 10) || 1
+
+    if (filtersChanged) {
       const newId = params.id || null;
       const newFilters = getFiltersFromParams(params);
       setId(newId);
       setFilters(newFilters);
+      setPage(nextPage);
       // Need to fetch with the new values
+      
       idRef.current = newId;
       filtersRef.current = newFilters;
-      fetchAlertSummaries(newId);
+      pageRef.current = nextPage;
+
+      fetchAlertSummaries(newId, false, nextPage);
     } else if (params.page && params.page !== prevParams.page) {
-      fetchAlertSummaries(undefined, false, parseInt(params.page, 10));
+      pageRef.current = nextPage;
+      fetchAlertSummaries(undefined, false, nextPage);
     }
   }, [location.search, getFiltersFromParams, fetchAlertSummaries]);
 
