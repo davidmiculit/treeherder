@@ -559,6 +559,13 @@ class GraphsContainer extends React.Component {
                         y: zoomDomain.maxY,
                         label: i.description,
                       }))}
+                      labels={({ datum }) => datum.label}
+                      labelComponent={
+                        <VictoryTooltip
+                          renderInPortal
+                          pointerLength={6}
+                        />
+                      }
                       style={{
                         data: { fill: this.infraChangeColor, width: 1 },
                       }}
