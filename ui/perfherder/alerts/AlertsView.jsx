@@ -358,7 +358,7 @@ function AlertsView({
       params.monitoredAlerts !== prevParams.monitoredAlerts
       
     // check if page displays an alerts list or a specific alert
-    const isDetailMode = Boolean(params.id) 
+    const isDetailMode = Boolean(params.id);
 
     if (filtersChanged) {
       const newId = params.id || null;
@@ -371,9 +371,9 @@ function AlertsView({
       filtersRef.current = newFilters;
       
       if (isDetailMode) {
-        fetchAlertSummaries(newId, false)
+        fetchAlertSummaries(newId, false);
       } else {
-        const nextPage = parseInt(params.page, 10) || 1;
+        const nextPage = 1;
 
         setPage(nextPage);
         pageRef.current = nextPage;
